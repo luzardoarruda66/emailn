@@ -20,8 +20,8 @@ type Campaign struct {
 }
 
 func NewCampaign(name string, content string, emails []string) (*Campaign, error) {
-	contacts := make([]Contact, len(emails))
 
+	contacts := make([]Contact, len(emails))
 	for i, value := range emails {
 		contacts[i].Email = value
 	}
