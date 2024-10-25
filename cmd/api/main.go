@@ -22,7 +22,8 @@ func main() {
 		Repository: &database.CampaingRepository{},
 	}
 	handler := endpoints.Handler{CampaingService: campaingService}
-	r.Post("/campaigns", handler.CampaingPost)
+	r.Post("/campaigns", endpoints.HandlerError(handler.CampaingPost))
+	r.Get("/campaigns", endpoints.HandlerError(handler.CampaingGet))
 
 	http.ListenAndServe(":3000", r)
 }
