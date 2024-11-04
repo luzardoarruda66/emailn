@@ -1,20 +1,29 @@
 package database
 
-import "emailn/internal/domain/campaign"
+import (
+	"emailn/internal/domain/campaign"
+
+	"gorm.io/gorm"
+)
 
 type CampaingRepository struct {
-	campaings []campaign.Campaign
+	Db *gorm.DB
 }
 
 func (c *CampaingRepository) Save(campaing *campaign.Campaign) error {
-	c.campaings = append(c.campaings, *campaing)
-	return nil
+	tx := c.Db.Create(campaing)
+	return tx.Error
 }
 
 func (c *CampaingRepository) Get() ([]campaign.Campaign, error) {
-	return c.campaings, nil
+	var campaings []campaign.Campaign
+	tx := c.Db.Find(&campaings)
+	return campaings, tx.Error
 }
 
 func (c *CampaingRepository) GetBy(id string) (*campaign.Campaign, error) {
-	return nil, nil
+	var campaings campaign.Campaign
+	tx := c.Db.First(&campaings, id)
+
+	return &campaings, tx.Error
 }

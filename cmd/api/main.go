@@ -18,8 +18,9 @@ func main() {
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 
+	db := database.NewDB()
 	campaingService := campaign.ServiceImp{
-		Repository: &database.CampaingRepository{},
+		Repository: &database.CampaingRepository{Db: db},
 	}
 	handler := endpoints.Handler{CampaingService: &campaingService}
 	r.Post("/campaigns", endpoints.HandlerError(handler.CampaingPost))
