@@ -1,12 +1,20 @@
 POST http://localhost:3000/campaigns
 
 {
-    "name": "mouse",
+    "name": "You must change",
     "content": "change password",
-    "emails": ["teste@teste.com.br"]
+    "emails": ["luazardo@teste.com.br"]
 
 }
 
 ###
 
-GET http://localhost:3000/campaigns/cskiemqjivhmp36o1ma0
+GET http://localhost:3000/campaigns/cskk462jivhlsr1114jg
+
+
+###
+
+PATCH  http://localhost:3000/campaigns/cancel/cskji9qjivhhji5itqgg
+
+###
+DELETE  http://localhost:3000/campaigns/delete/cskk462jivhlsr1114jg
