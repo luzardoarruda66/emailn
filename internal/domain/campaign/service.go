@@ -5,11 +5,15 @@ import (
 	internalerrors "emailn/internal/internalErrors"
 )
 
-type Service struct {
+type Service interface {
+	Create(newCampaign contract.NewCampaign) (string, error)
+	GetBy(id string) (*contract.CampaingResponse, error)
+}
+type ServiceImp struct {
 	Repository Repository
 }
 
-func (s *Service) Create(newCampaign contract.NewCampaign) (string, error) {
+func (s *ServiceImp) Create(newCampaign contract.NewCampaign) (string, error) {
 
 	campaign, err := NewCampaign(newCampaign.Name, newCampaign.Content, newCampaign.Emails)
 	if err != nil {
@@ -21,4 +25,17 @@ func (s *Service) Create(newCampaign contract.NewCampaign) (string, error) {
 	}
 
 	return campaign.ID, nil
+}
+
+func (s *ServiceImp) GetBy(id string) (*contract.CampaingResponse, error) {
+	campaing, err := s.Repository.GetBy(id)
+	if err != nil {
+		return nil, internalerrors.ErrInternal
+	}
+
+	return &contract.CampaingResponse{
+		ID:      campaing.ID,
+		Name:    campaing.Name,
+		Content: campaing.Content,
+		Status:  campaing.Status}, nil
 }
