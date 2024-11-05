@@ -37,10 +37,12 @@ func (s *ServiceImp) GetBy(id string) (*contract.CampaingResponse, error) {
 	}
 
 	return &contract.CampaingResponse{
-		ID:      campaing.ID,
-		Name:    campaing.Name,
-		Content: campaing.Content,
-		Status:  campaing.Status}, nil
+		ID:                   campaing.ID,
+		Name:                 campaing.Name,
+		Content:              campaing.Content,
+		Status:               campaing.Status,
+		AmountOfEmailsToSend: len(campaing.Contacts),
+	}, nil
 }
 
 func (s *ServiceImp) Cancel(id string) error {

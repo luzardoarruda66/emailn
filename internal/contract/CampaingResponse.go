@@ -1,8 +1,9 @@
 package contract
 
 type CampaingResponse struct {
-	ID      string
-	Name    string
-	Content string
-	Status  string
+	ID                   string
+	Name                 string
+	Content              string
+	Status               string
+	AmountOfEmailsToSend int
 }

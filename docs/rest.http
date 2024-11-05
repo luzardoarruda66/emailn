@@ -3,13 +3,13 @@ POST http://localhost:3000/campaigns
 {
     "name": "You must change",
     "content": "change password",
-    "emails": ["luazardo@teste.com.br"]
+    "emails": ["luazardo@teste.com.br", "luazardo2@teste.com.br","luazardo3@teste.com.br"]
 
 }
 
 ###
 
-GET http://localhost:3000/campaigns/cskk462jivhlsr1114jg
+GET http://localhost:3000/campaigns/csl1vg2jivhl5q06b8r0
 
 
 ###
