@@ -9,7 +9,6 @@ import (
 type Service interface {
 	Create(newCampaign contract.NewCampaign) (string, error)
 	GetBy(id string) (*contract.CampaingResponse, error)
-	Cancel(id string) error
 	Delete(id string) error
 }
 type ServiceImp struct {
@@ -33,7 +32,7 @@ func (s *ServiceImp) Create(newCampaign contract.NewCampaign) (string, error) {
 func (s *ServiceImp) GetBy(id string) (*contract.CampaingResponse, error) {
 	campaing, err := s.Repository.GetBy(id)
 	if err != nil {
-		return nil, internalerrors.ErrInternal
+		return nil, internalerrors.ProcessErrorToReturn(err)
 	}
 
 	return &contract.CampaingResponse{
@@ -45,29 +44,12 @@ func (s *ServiceImp) GetBy(id string) (*contract.CampaingResponse, error) {
 	}, nil
 }
 
-func (s *ServiceImp) Cancel(id string) error {
-	campaing, err := s.Repository.GetBy(id)
-	if err != nil {
-		return internalerrors.ErrInternal
-	}
-
-	if campaing.Status != Pending {
-		return errors.New("campaign status invalid")
-	}
-	campaing.Cancel()
-	err = s.Repository.Update(campaing)
-	if err != nil {
-		return internalerrors.ErrInternal
-	}
-	return nil
-}
-
 func (s *ServiceImp) Delete(id string) error {
 
 	campaign, err := s.Repository.GetBy(id)
 
 	if err != nil {
-		return internalerrors.ErrInternal
+		return internalerrors.ProcessErrorToReturn(err)
 	}
 
 	if campaign.Status != Pending {

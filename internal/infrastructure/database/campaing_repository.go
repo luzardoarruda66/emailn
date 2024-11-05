@@ -33,13 +33,6 @@ func (c *CampaingRepository) GetBy(id string) (*campaign.Campaign, error) {
 	return &campaings, tx.Error
 }
 
-func (c *CampaingRepository) Cancel(id string) error {
-	var campaings campaign.Campaign
-	tx := c.Db.First(&campaings, "id = ?", id)
-
-	return tx.Error
-}
-
 func (c *CampaingRepository) Delete(campaign *campaign.Campaign) error {
 	tx := c.Db.Delete(campaign)
 	return tx.Error
