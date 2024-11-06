@@ -6,34 +6,34 @@ import (
 	"gorm.io/gorm"
 )
 
-type CampaingRepository struct {
+type CampaignRepository struct {
 	Db *gorm.DB
 }
 
-func (c *CampaingRepository) Create(campaing *campaign.Campaign) error {
-	tx := c.Db.Create(campaing)
+func (c *CampaignRepository) Create(campaign *campaign.Campaign) error {
+	tx := c.Db.Create(campaign)
 	return tx.Error
 }
 
-func (c *CampaingRepository) Update(campaing *campaign.Campaign) error {
-	tx := c.Db.Save(campaing)
+func (c *CampaignRepository) Update(campaign *campaign.Campaign) error {
+	tx := c.Db.Save(campaign)
 	return tx.Error
 }
 
-func (c *CampaingRepository) Get() ([]campaign.Campaign, error) {
-	var campaings []campaign.Campaign
-	tx := c.Db.Find(&campaings)
-	return campaings, tx.Error
+func (c *CampaignRepository) Get() ([]campaign.Campaign, error) {
+	var campaigns []campaign.Campaign
+	tx := c.Db.Find(&campaigns)
+	return campaigns, tx.Error
 }
 
-func (c *CampaingRepository) GetBy(id string) (*campaign.Campaign, error) {
-	var campaings campaign.Campaign
-	tx := c.Db.Preload("Contacts").First(&campaings, "id = ?", id)
+func (c *CampaignRepository) GetBy(id string) (*campaign.Campaign, error) {
+	var campaigns campaign.Campaign
+	tx := c.Db.Preload("Contacts").First(&campaigns, "id = ?", id)
 
-	return &campaings, tx.Error
+	return &campaigns, tx.Error
 }
 
-func (c *CampaingRepository) Delete(campaign *campaign.Campaign) error {
+func (c *CampaignRepository) Delete(campaign *campaign.Campaign) error {
 	tx := c.Db.Delete(campaign)
 	return tx.Error
 }

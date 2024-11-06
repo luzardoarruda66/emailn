@@ -1,9 +1,9 @@
 package campaign
 
 type Repository interface {
-	Create(campaing *Campaign) error
-	Update(campaing *Campaign) error
+	Create(campaign *Campaign) error
+	Update(campaign *Campaign) error
 	Get() ([]Campaign, error)
 	GetBy(id string) (*Campaign, error)
-	Delete(campaing *Campaign) error
+	Delete(campaign *Campaign) error
 }

@@ -4,13 +4,21 @@ import (
 	"emailn/internal/domain/campaign"
 	"emailn/internal/endpoints"
 	"emailn/internal/infrastructure/database"
+	"log"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
 	r := chi.NewRouter()
 
 	r.Use(middleware.RequestID)
@@ -19,13 +27,22 @@ func main() {
 	r.Use(middleware.Recoverer)
 
 	db := database.NewDB()
-	campaingService := campaign.ServiceImp{
-		Repository: &database.CampaingRepository{Db: db},
+	campaignService := campaign.ServiceImp{
+		Repository: &database.CampaignRepository{Db: db},
 	}
-	handler := endpoints.Handler{CampaingService: &campaingService}
-	r.Post("/campaigns", endpoints.HandlerError(handler.CampaingPost))
-	r.Get("/campaigns/{id}", endpoints.HandlerError(handler.CampaingGetById))
-	r.Delete("/campaigns/delete/{id}", endpoints.HandlerError(handler.CampaingDelete))
+	handler := endpoints.Handler{CampaignService: &campaignService}
+	r.Get("/ping", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("pong"))
+	})
+
+	r.Route("/campaigns", func(r chi.Router) {
+		r.Use(endpoints.Auth)
+
+		r.Post("/", endpoints.HandlerError(handler.CampaignPost))
+		r.Get("/{id}", endpoints.HandlerError(handler.CampaignGetById))
+		r.Delete("/delete/{id}", endpoints.HandlerError(handler.CampaignDelete))
+
+	})
 
 	http.ListenAndServe(":3000", r)
 }

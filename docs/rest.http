@@ -1,4 +1,11 @@
-POST http://localhost:3000/campaigns
+@url = http://localhost:3000
+
+@identity_provider = http://localhost:8080
+
+
+
+POST {{url}}/campaigns
+Authorization: Bearer {{access_token}}
 
 {
     "name": "You must change",
@@ -8,13 +15,19 @@ POST http://localhost:3000/campaigns
 }
 
 ###
-
-GET http://localhost:3000/campaigns/csl4gkijivhmjs13h6rg
-
-
-###
-
-PATCH  http://localhost:3000/campaigns/cancel/csl5da2jivhmv27j8uh0
+GET {{url}}/campaigns/cslr8gijivhihb6ndu50
+Authorization: Bearer {{access_token}}
 
 ###
-DELETE  http://localhost:3000/campaigns/delete/csl4gkijmjs13h6rg
+DELETE  {{url}}/campaigns/delete/csl4gkijmjs13h6rg
+Authorization: Bearer {{access_token}}
+
+###
+# @name token
+
+POST {{identity_provider}}/realms/provider/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=emailn&username=luzardoarruda66@gmail.com&password=123456&grant_type=password
+###
+@access_token = {{token.response.body.access_token}}

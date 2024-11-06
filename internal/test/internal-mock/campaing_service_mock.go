@@ -6,23 +6,23 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
-type CampaingServiceMock struct {
+type CampaignServiceMock struct {
 	mock.Mock
 }
 
-func (r *CampaingServiceMock) Create(newCampaing contract.NewCampaign) (string, error) {
-	args := r.Called(newCampaing)
+func (r *CampaignServiceMock) Create(newCampaign contract.NewCampaign) (string, error) {
+	args := r.Called(newCampaign)
 	return args.String(0), args.Error(1)
 }
 
-func (r *CampaingServiceMock) GetBy(id string) (*contract.CampaingResponse, error) {
+func (r *CampaignServiceMock) GetBy(id string) (*contract.CampaignResponse, error) {
 	args := r.Called(id)
 	if args.Error(1) != nil {
 		return nil, args.Error(1)
 	}
-	return args.Get(0).(*contract.CampaingResponse), args.Error(1)
+	return args.Get(0).(*contract.CampaignResponse), args.Error(1)
 }
 
-func (r *CampaingServiceMock) Delete(id string) error {
+func (r *CampaignServiceMock) Delete(id string) error {
 	return nil
 }

@@ -12,36 +12,36 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
-func Test_CampaingGetById_should_return_campaing(t *testing.T) {
+func Test_CampaignGetById_should_return_campaign(t *testing.T) {
 	assert := assert.New(t)
-	campaing := contract.CampaingResponse{
+	campaign := contract.CampaignResponse{
 		ID:      "343",
 		Name:    "Test",
 		Content: "Hi",
 		Status:  "Pending",
 	}
-	service := new(internalmock.CampaingServiceMock)
-	service.On("GetBy", mock.Anything).Return(&campaing, nil)
-	handler := Handler{CampaingService: service}
+	service := new(internalmock.CampaignServiceMock)
+	service.On("GetBy", mock.Anything).Return(&campaign, nil)
+	handler := Handler{CampaignService: service}
 	req, _ := http.NewRequest("GET", "/", nil)
 	rr := httptest.NewRecorder()
 
-	response, status, _ := handler.CampaingGetById(rr, req)
+	response, status, _ := handler.CampaignGetById(rr, req)
 
 	assert.Equal(200, status)
-	assert.Equal(campaing.ID, response.(*contract.CampaingResponse).ID)
-	assert.Equal(campaing.Name, response.(*contract.CampaingResponse).Name)
+	assert.Equal(campaign.ID, response.(*contract.CampaignResponse).ID)
+	assert.Equal(campaign.Name, response.(*contract.CampaignResponse).Name)
 }
-func Test_CampaingGetById_should_return_error_when_something_wrong(t *testing.T) {
+func Test_CampaignGetById_should_return_error_when_something_wrong(t *testing.T) {
 	assert := assert.New(t)
 	errExpected := errors.New("Something wrong")
-	service := new(internalmock.CampaingServiceMock)
+	service := new(internalmock.CampaignServiceMock)
 	service.On("GetBy", mock.Anything).Return(nil, errExpected)
-	handler := Handler{CampaingService: service}
+	handler := Handler{CampaignService: service}
 	req, _ := http.NewRequest("GET", "/", nil)
 	rr := httptest.NewRecorder()
 
-	_, _, errReturned := handler.CampaingGetById(rr, req)
+	_, _, errReturned := handler.CampaignGetById(rr, req)
 
 	assert.Equal(errExpected.Error(), errReturned.Error())
 }
