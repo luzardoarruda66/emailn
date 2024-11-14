@@ -4,6 +4,7 @@ import (
 	"emailn/internal/domain/campaign"
 	"emailn/internal/endpoints"
 	"emailn/internal/infrastructure/database"
+	"emailn/internal/infrastructure/mail"
 	"log"
 	"net/http"
 
@@ -29,6 +30,7 @@ func main() {
 	db := database.NewDB()
 	campaignService := campaign.ServiceImp{
 		Repository: &database.CampaignRepository{Db: db},
+		SendMail:   mail.SendMail,
 	}
 	handler := endpoints.Handler{CampaignService: &campaignService}
 	r.Get("/ping", func(w http.ResponseWriter, r *http.Request) {
