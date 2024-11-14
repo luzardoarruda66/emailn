@@ -8,7 +8,7 @@ import (
 	"gopkg.in/gomail.v2"
 )
 
-func SendEmail(campaign *campaign.Campaign) error {
+func SendMail(campaign *campaign.Campaign) error {
 	fmt.Println("Sending email..")
 
 	d := gomail.NewDialer(os.Getenv("EMAIL_SMTP"), 587, os.Getenv("EMAIL_USER"), os.Getenv("EMAIL_PASSWORD"))
