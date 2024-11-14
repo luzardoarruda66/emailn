@@ -23,6 +23,11 @@ DELETE  {{url}}/campaigns/delete/csl4gkijmjs13h6rg
 Authorization: Bearer {{access_token}}
 
 ###
+PATCH  {{url}}/campaigns/start/csl4gkijmjs13h6rg
+Authorization: Bearer {{access_token}}
+
+
+###
 # @name token
 
 POST {{identity_provider}}/realms/provider/protocol/openid-connect/token
