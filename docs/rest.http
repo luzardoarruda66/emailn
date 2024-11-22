@@ -15,7 +15,7 @@ Authorization: Bearer {{access_token}}
 }
 
 ###
-GET {{url}}/campaigns/csr6smijivhmer3rig9g
+GET {{url}}/campaigns/ct0d99ijivhmgf02rkv0
 Authorization: Bearer {{access_token}}
 
 ###
@@ -23,7 +23,7 @@ DELETE  {{url}}/campaigns/delete/csl4gkijmjs13h6rg
 Authorization: Bearer {{access_token}}
 
 ###
-PATCH  {{url}}/campaigns/start/csr6smijivhmer3rig9g
+PATCH  {{url}}/campaigns/start/ct0d99ijivhmgf02rkv0
 Authorization: Bearer {{access_token}}
 
 
