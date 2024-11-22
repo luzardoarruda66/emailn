@@ -8,11 +8,12 @@ import (
 )
 
 const (
-	Pending = "Pending"
-	Deleted = "Deleted"
-	Started = "Started"
-	Fail    = "Fail"
-	Done    = "Done"
+	Pending  = "Pending"
+	Deleted  = "Deleted"
+	Started  = "Started"
+	Canceled = "Canceled"
+	Fail     = "Fail"
+	Done     = "Done"
 )
 
 type Contact struct {
@@ -49,6 +50,11 @@ func (c *Campaign) Fail() {
 
 func (c *Campaign) Started() {
 	c.Status = Started
+	c.UpdatedOn = time.Now()
+}
+
+func (c *Campaign) Cancel() {
+	c.Status = Canceled
 	c.UpdatedOn = time.Now()
 }
 
