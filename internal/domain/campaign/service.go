@@ -80,8 +80,6 @@ func (s *ServiceImp) Start(id string) error {
 		return err
 	}
 
-	go s.SendEmailAndUpdateStatus(campaignSaved)
-
 	campaignSaved.Started()
 	err = s.Repository.Update(campaignSaved)
 	if err != nil {
